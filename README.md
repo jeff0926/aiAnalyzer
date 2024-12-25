@@ -1,138 +1,82 @@
-# AI Repository Analyzer
+# AI Analyzer
 
-An advanced GitHub repository analysis system powered by local and cloud LLMs, featuring dynamic knowledge graph generation and comprehensive analysis reports.
+A comprehensive GitHub repository analysis system that leverages both local and cloud LLMs to generate detailed insights, knowledge graphs, and analysis reports.
 
 ## 🚀 Features
 
-- **Stream-based Repository Analysis**
-  - Real-time file processing
-  - Multi-threaded analysis
-  - Progress tracking
+- **Stream-based Repository Analysis**: Real-time processing of repository contents
+- **Multi-Agent Architecture**: Specialized agents for different file types
+- **Hybrid LLM Integration**: Both local and cloud LLM support
+- **Interactive Knowledge Graph**: 3D visualization of repository structure
+- **Comprehensive Reports**: Including ARB packages, security analysis, and performance metrics
 
-- **Specialized File Analysis Agents**
-  - Source code (.py, .js, .java, .cpp, .go, etc.)
-  - Configuration files (.yaml, .json, .toml, .env)
-  - Documentation (.md, .rst, .txt, .wiki)
-  - Build files (Dockerfile, docker-compose.yml)
-  - Infrastructure (.tf, .cf, k8s)
-  - Test files
-  - Database files
-  - Security files
+## 🛠️ Technical Stack
 
-- **Advanced LLM Integration**
-  - Local LLM support (LlamaCpp)
-    - CodeLlama-34b for code analysis
-    - Llama-2-70b for general analysis
-  - Cloud LLM integration
-    - OpenAI GPT-4
-    - Anthropic Claude
-    - Azure OpenAI
-  - Intelligent routing system
-  - Privacy-aware processing
+- **Language**: Python 3.9+
+- **Local LLMs**: LlamaCpp with CodeLlama-34b and Llama-2-70b
+- **Cloud LLMs**: OpenAI GPT-4, Anthropic Claude, Azure OpenAI
+- **Visualization**: Three.js
+- **Testing**: pytest
 
-- **Interactive Knowledge Graph**
-  - Dynamic graph construction
-  - 3D visualization with Three.js
-  - Advanced relationship mapping
-  - Interactive exploration features
+## 📦 Installation
 
-- **Comprehensive Output**
-  - JSON repository summaries
-  - 3D knowledge graphs
-  - ARB packages
-  - Security reports
-  - Performance analysis
-  - Metrics dashboard
+```bash
+# Clone the repository
+git clone https://github.com/jeff0926/aiAnalyzer.git
+cd aiAnalyzer
 
-## 🛠️ Installation
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/jeff0926/aiAnalyzer.git
-   cd aiAnalyzer
-   ```
+# Install dependencies
+pip install -r requirements.txt
+```
 
-2. Create a virtual environment:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+## 🏗️ Project Structure
 
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+```
+/core               # Core system functionality
+  /llm             # LLM integration
+  analyzer.py      # Main analysis engine
+  repo_cloner.py   # Repository handling
+  aggregator.py    # Results aggregation
+/agents            # Specialized analysis agents
+/graph             # Knowledge graph implementation
+/ui                # Web interface
+/utils             # Utility functions
+/tests             # Test suite
+```
 
-4. Configure environment variables:
-   ```bash
-   cp .env.example .env
-   # Edit .env with your API keys and configurations
-   ```
+## 📊 Usage
 
-## 📋 Requirements
+```python
+from core.analyzer import RepositoryAnalyzer
 
-- Python 3.9+
-- CUDA-compatible GPU (recommended for local LLM processing)
-- Node.js 16+ (for UI components)
-- Git
+# Initialize analyzer
+analyzer = RepositoryAnalyzer(repo_url="https://github.com/user/repo")
 
-## 🔧 Configuration
+# Run analysis
+results = analyzer.analyze()
 
-The system can be configured through:
-- Environment variables
-- Configuration files (config.yaml)
-- Command-line arguments
+# Generate reports
+analyzer.generate_reports()
+```
 
-See `config/README.md` for detailed configuration options.
+## 🧪 Testing
 
-## 🚀 Usage
+```bash
+# Run all tests
+pytest
 
-1. Start the analysis server:
-   ```bash
-   python -m aianalyzer.server
-   ```
-
-2. Run analysis on a repository:
-   ```bash
-   python -m aianalyzer.cli analyze https://github.com/user/repo
-   ```
-
-3. Access the web interface:
-   ```
-   http://localhost:3000
-   ```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+# Run specific test category
+pytest tests/test_analyzer.py
+```
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 📚 Documentation
+## 🤝 Contributing
 
-Full documentation is available at [docs/README.md](docs/README.md).
-
-## 🏗️ Architecture
-
-The system is built with a modular architecture:
-
-```
-/core             - Core system components
-  /llm           - LLM integration
-  analyzer.py    - Main analysis logic
-  repo_cloner.py - Repository handling
-/agents           - Specialized analysis agents
-/graph            - Knowledge graph components
-/ui               - Web interface
-/utils            - Utility functions
-/tests            - Test suite
-```
-
-## 🙏 Acknowledgments
-
-- [LlamaCpp](https://github.com/ggerganov/llama.cpp)
-- [Three.js](https://threejs.org/)
-- [Anthropic](https://www.anthropic.com/)
-- [OpenAI](https://openai.com/)
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
