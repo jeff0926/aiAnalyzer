@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repository Analysis Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex flex-col">
+        <!-- Header -->
+        <header class="bg-white shadow-sm">
+            <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                <h1 class="text-2xl font-bold text-gray-900">Repository Analysis</h1>
+                <div class="flex space-x-4">
+                    <button id="newAnalysisBtn" class="bg-blue-600 text-white px-4 py-2 rounded-md">
+                        New Analysis
+                    </button>
+                    <button id="settingsBtn" class="text-gray-600 hover:text-gray-900">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+            <!-- Repository Selection -->
+            <div id="repoSelection" class="bg-white rounded-lg shadow p-6 mb-8 hidden">
+                <h2 class="text-lg font-semibold mb-4">New Repository Analysis</h2>
+                <form id="repoForm" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Repository URL</label>
+                        <input type="text" id="repoUrl" 
+                               class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    </div>
+                    <div class="flex space-x-4">
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md">
+                            Start Analysis
+                        </button>
+                        <button type="button" class="text-gray-600 hover:text-gray-900 px-4 py-2" 
+                                onclick="document.getElementById('repoSelection').classList.add('hidden')">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Analysis Dashboard -->
+            <div id="analysisDashboard" class="space-y-8">
+                <!-- Overview Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-sm font-medium text-gray-500">Files Analyzed</h3>
+                        <p id="filesCount" class="mt-2 text-3xl font-semibold text-gray-900">0</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-sm font-medium text-gray-500">Components Detected</h3>
+                        <p id="componentsCount" class="mt-2 text-3xl font-semibold text-gray-900">0</p>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-sm font-medium text-gray-500">Issues Found</h3>
+                        <p id="issuesCount" class="mt-2 text-3xl font-semibold text-gray-900">0</p>
+                    </div>
+                </div>
+
+                <!-- Main Panels -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Knowledge Graph -->
+                    <div class="bg-white rounded-lg shadow">
+                        <div class="p-4 border-b border-gray-200">
+                            <h2 class="text-lg font-semibold">Knowledge Graph</h2>
+                        </div>
+                        <div id="graphVisualization" class="h-96"></div>
+                    </div>
+
+                    <!-- Analysis Results -->
+                    <div class="bg-white rounded-lg shadow">
+                        <div class="p-4 border-b border-gray-200">
+                            <h2 class="text-lg font-semibold">Analysis Results</h2>
+                        </div>
+                        <div class="p-4">
+                            <!-- Tabs -->
+                            <div class="border-b border-gray-200">
+                                <nav class="-mb-px flex space-x-8">
+                                    <button class="tab-button active" data-tab="overview">Overview</button>
+                                    <button class="tab-button" data-tab="architecture">Architecture</button>
+                                    <button class="tab-button" data-tab="security">Security</button>
+                                    <button class="tab-button" data-tab="performance">Performance</button>
+                                </nav>
+                            </div>
+
+                            <!-- Tab Content -->
+                            <div class="mt-4">
+                                <div id="overview" class="tab-content active">
+                                    <!-- Overview content -->
+                                </div>
+                                <div id="architecture" class="tab-content hidden">
+                                    <!-- Architecture content -->
+                                </div>
+                                <div id="security" class="tab-content hidden">
+                                    <!-- Security content -->
+                                </div>
+                                <div id="performance" class="tab-content hidden">
+                                    <!-- Performance content -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-4 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold">Recommendations</h2>
+                    </div>
+                    <div class="p-4">
+                        <div id="recommendations" class="space-y-4">
+                            <!-- Recommendations will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 bg-gray-500 bg-opacity-75 hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white rounded-lg shadow-xl max-w-md w-full m-4">
+                <div class="p-4 border-b border-gray-200">
+                    <h2 class="text-lg font-semibold">Settings</h2>
+                </div>
+                <div class="p-4 space-y-4">
+                    <!-- Settings content -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Theme</label>
+                        <select id="themeSelect" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            <option value="light">Light</option>
+                            <option value="dark">Dark</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700">Analysis Depth</label>
+                        <select id="analysisDepthSelect" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm">
+                            <option value="quick">Quick</option>
+                            <option value="standard">Standard</option>
+                            <option value="deep">Deep</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="p-4 border-t border-gray-200">
+                    <button id="closeSettingsBtn" class="text-gray-600 hover:text-gray-900">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="main.js"></script>
+    <script src="graph_viz.js"></script>
+    <script src="report_gen.js"></script>
+</body>
+</html>
